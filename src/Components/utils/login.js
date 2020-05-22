@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
+require('dotenv').config();
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Login extends React.Component {
             onSubmit={(e) => {
               e.preventDefault();
               let data = this.state;
-              axios.post('http://localhost:4000/signin', data).then((res) => {
+              axios.post(`${process.env.EC2_HOST}/signin`, data).then((res) => {
                 console.log(res.data);
                 this.props.history.push('/');
               });
