@@ -2,10 +2,9 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-class Login extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       userid: '',
       password: '',
@@ -19,15 +18,18 @@ class Login extends React.Component {
     return (
       <div>
         <center>
-          <h1 style={{ color: 'dodgerblue' }}>로그인</h1>
+          <h1 style={{ color: 'dodgerblue' }}>회원가입</h1>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              let data = this.state;
-              axios.post('http://localhost:4000/signin', data).then((res) => {
-                console.log(res.data);
-                this.props.history.push('/');
-              });
+              axios
+                .post('http://localhost:4000/signup', {
+                  userid: this.state.userid,
+                  password: this.state.password,
+                })
+                .then((res) => {
+                  this.props.history.push('/');
+                });
             }}
           >
             <div>
@@ -51,14 +53,14 @@ class Login extends React.Component {
                   margin: '5px',
                   borderRadius: '5px',
                 }}
+                onChange={this.handleInputValue('password')}
                 type="password"
                 placeholder="비밀번호를 입력 해주세요"
-                onChange={this.handleInputValue('password')}
               ></input>
             </div>
             <div>
-              <Link style={{ color: 'dodgerblue' }} to="/signup">
-                회원가입
+              <Link style={{ color: 'dodgerblue' }} to="/">
+                이미 아이디가 있으신가요?
               </Link>
             </div>
             <button
@@ -71,7 +73,7 @@ class Login extends React.Component {
               }}
               type="submit"
             >
-              로그인
+              회원가입
             </button>
           </form>
         </center>
@@ -80,4 +82,4 @@ class Login extends React.Component {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(Signup);

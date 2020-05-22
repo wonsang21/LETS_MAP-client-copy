@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import Footer from './footer';
+import Footer from './Footer';
 const Header = styled.header`
   color: white;
   position: fixed;
@@ -82,8 +82,8 @@ const LandingPage = (props) => {
             <SLink to="/login">LOGIN</SLink>
             {/* 로그인시 state 를변경시켜서  로그인회원가입을 숨긴다.*/}
           </Item>
-          <Item current={props.location.pathname === '/signin'}>
-            <SLink to="/signin">SIGN UP</SLink>
+          <Item current={props.location.pathname === '/signup'}>
+            <SLink to="/signup">SIGN UP</SLink>
           </Item>
         </List>
       </Header>
