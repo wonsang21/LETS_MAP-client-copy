@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import oc from 'open-color';
+import GoogleLogin from '../GoogleLogin/GoogleLogin';
 //css 부분
 // 전체 정렬 부분
 const Positioner = styled.div`
@@ -113,7 +114,7 @@ class Login extends React.Component {
                     e.preventDefault();
                     let data = this.state;
                     axios
-                      .post(`${process.env.EC2_HOST}/signin`, data)
+                      .post(`${process.env.REACT_APP_EC2_HOST}/signin`, data)
                       .then((res) => {
                         console.log(res.data);
                         this.props.history.push('/');
@@ -140,7 +141,7 @@ class Login extends React.Component {
                       <FbButton>페이스북</FbButton>
                     </div>
                     <div>
-                      <GgButton>구글</GgButton>
+                      <GoogleLogin />
                     </div>
                   </div>
                   <div style={{ marginTop: '4.5rem' }}>
