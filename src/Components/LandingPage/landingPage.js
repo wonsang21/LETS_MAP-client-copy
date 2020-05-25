@@ -85,6 +85,9 @@ const LandingPage = (props) => {
           <Item current={props.location.pathname === '/signup'}>
             <SLink to="/signup">SIGN UP</SLink>
           </Item>
+          <Item current={props.location.pathname === '/signup'}>
+            <SLink to="/map">KAKAO MAP</SLink>
+          </Item>
         </List>
       </Header>
       <Body>

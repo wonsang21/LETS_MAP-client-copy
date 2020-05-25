@@ -4,6 +4,7 @@ import LandingPage from './Components/LandingPage/LandingPage';
 import GlobalStyles from './Components/GlobalStyles';
 import Login from './Components/utils/Login';
 import Signup from './Components/utils/Signup';
+import KakaoMap from './Components/Map/KakaoMap';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/" render={() => <LandingPage />} />
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/signup" render={() => <Signup />} />
+          <Route exaxt path="/map" render={() => <KakaoMap />} />
         </Router>
       </Switch>
     </div>
