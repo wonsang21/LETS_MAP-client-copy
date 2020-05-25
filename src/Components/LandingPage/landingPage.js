@@ -100,9 +100,14 @@ const LandingPage = (props) => {
         />
         <input type="submit" value="찾기" style={{ width: 130, height: 50 }} />
       </Search>
-      <Spiner>
-        <i class="fas fa-spinner fa-10x fa-spin"></i>
-      </Spiner>
+      <Link
+        style={{
+          color: 'dodgerblue',
+        }}
+        to="/map"
+      >
+        내 위치
+      </Link>
       <Footer />
     </div>
   );
