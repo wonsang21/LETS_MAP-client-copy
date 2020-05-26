@@ -48,7 +48,9 @@ function App() {
             render={() => <Login loginHandler={loginHandler} />}
           />
           <Route exact path="/signup" render={() => <Signup />} />
+
           <Route path="/map" render={() => <Map position={position} />} />
+
         </Router>
       </Switch>
     </div>
