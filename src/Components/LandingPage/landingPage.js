@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import { geolocated } from 'react-geolocated';
@@ -63,54 +63,87 @@ const Spiner = styled.div`
   text-align: center;
   margin: auto;
   width: 300px;
+  font-size: 300px;
   animation: spin 2s linear infinite;
   color: dodgerblue;
-  /* @keyframes spin {
+  @keyframes spin {
     from {
       transform: rotate(0);
     }
     to {
       transform: rotate(360deg);
     }
-  } */
+  }
 `;
 
 const LandingPage = (props) => {
-  console.dir(props);
-  if (props.coords) {
-    console.log(props.coords.latitude);
-    console.log(props.coords.longitude);
-  }
-  return (
-    <div>
-      <Body>
-        <Link to="/" style={{ color: 'dodgerblue' }}>
-          LET`S_MAP
+  const [indutype, setIndutype] = useState('');
+  const [inputText, setInputText] = useState('');
+  const indutypeHandler = (indu) => {
+    setIndutype(indu);
+  };
+
+  const onChangeHandler = (e) => {
+    setInputText(e.target.value);
+  };
+  if (props.isloading) {
+    return (
+      <div>
+        <Spiner>
+          <i class="fas fa-spinner"></i>
+        </Spiner>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <Body>
+          <Link to="/" style={{ color: 'dodgerblue' }}>
+            LET`S_MAP
+          </Link>
+        </Body>
+        <Search>
+          <input
+            type="Search"
+            inverted={true}
+            style={{ width: 550, height: 50 }}
+            onChange={onChangeHandler}
+          />
+          <input
+            type="submit"
+            value="찾기"
+            style={{ width: 130, height: 50 }}
+            onClick={() => {
+              props.getMarketList(inputText, indutype, () => {
+                props.positionHandler(
+                  props.coords.longitude,
+                  props.coords.latitude,
+                );
+                props.history.push('/map');
+              });
+              // <Link to="/map"></Link>;
+            }}
+          />
+        </Search>
+        <Indutype indutypeHandler={indutypeHandler} />
+        <Link
+          style={{
+            color: 'dodgerblue',
+          }}
+          to="/map"
+          onClick={() => {
+            props.positionHandler(
+              props.coords.longitude,
+              props.coords.latitude,
+            );
+          }}
+        >
+          내 위치
         </Link>
-      </Body>
-      <Search>
-        <input
-          type="Search"
-          inverted={true}
-          style={{ width: 550, height: 50 }}
-        />
-        <input type="submit" value="찾기" style={{ width: 130, height: 50 }} />
-      </Search>
-      <Indutype />
-      <Link
-        style={{
-          color: 'dodgerblue',
-        }}
-        to="/map"
-        onClick={() => {
-          props.positionHandler(props.coords.longitude, props.coords.latitude);
-        }}
-      >
-        내 위치
-      </Link>
-      {/* <Footer /> */}
-    </div>
-  );
+        {/* <Footer /> */}
+      </div>
+    );
+  }
 };
 
 export default geolocated({
