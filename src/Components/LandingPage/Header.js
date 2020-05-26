@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import axios from 'axios';
 
 const NavBar = styled.header`
   color: white;
@@ -15,6 +16,7 @@ const NavBar = styled.header`
   background-color: rgba(20, 20, 20, 1);
   z-index: 10;
   box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
+  margin-bottom: 50px;
 `;
 const List = styled.ul`
   display: flex;
@@ -65,7 +67,22 @@ const Header = (props) => {
             <SLink to="/">HOME</SLink>
           </Item>
           <Item current={props.location.pathname === '/login'}>
-            <SLink to="/" onClick={() => props.loginHandler()}>
+            <SLink
+              to="/"
+              onClick={() => {
+                axios
+                  .post(`${process.env.REACT_APP_EC2_HOST}/signout`)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      this.props.history.push('/');
+                    }
+                  })
+                  .catch((res) => {
+                    alert('사용자가 존재하지 않습니다!');
+                  });
+                props.loginHandler();
+              }}
+            >
               LOGOUT
             </SLink>
             {/* 로그인시 state 를변경시켜서  로그인회원가입을 숨긴다.*/}

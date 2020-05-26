@@ -121,13 +121,9 @@ class Login extends React.Component {
                       .post(`${process.env.REACT_APP_EC2_HOST}/signin`, data)
                       .then((res) => {
                         if (res.status === 200) {
-                          this.props.loginHandler();
+                          this.props.loginHandler(data.userid);
                           this.props.history.push('/');
-                        } else if (res.status === 404) {
-                          alert('사용자가 존재하지 않습니다!');
                         }
-                        console.dir(res);
-                        console.log(res.data);
                       })
                       .catch((res) => {
                         alert('사용자가 존재하지 않습니다!');

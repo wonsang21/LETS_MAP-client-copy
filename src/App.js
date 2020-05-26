@@ -10,9 +10,20 @@ import Header from './Components/LandingPage/Header';
 function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const loginHandler = () => {
+  const [user, setUser] = useState({
+    userid: '',
+  });
+  const loginHandler = (id) => {
+    if (!isLogin) {
+      setUser({
+        userid: id,
+      });
+    }
     setIsLogin(!isLogin);
+  };
+
+  const positionHandler = (x, y) => {
+    setPosition({ x: x, y: y });
   };
 
   return (
@@ -26,14 +37,20 @@ function App() {
               <Header isLogin={isLogin} loginHandler={loginHandler} />
             )}
           />
-          <Route exact path="/" component={LandingPage} />
+          <Route
+            exact
+            path="/"
+            render={() => <LandingPage positionHandler={positionHandler} />}
+          />
           <Route
             exact
             path="/login"
             render={() => <Login loginHandler={loginHandler} />}
           />
           <Route exact path="/signup" render={() => <Signup />} />
-          <Route exact path="/map" render={() => <Map />} />
+
+          <Route path="/map" render={() => <Map position={position} />} />
+
         </Router>
       </Switch>
     </div>
