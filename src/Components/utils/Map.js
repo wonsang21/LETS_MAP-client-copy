@@ -131,6 +131,7 @@ class Map extends Component {
   render() {
     return (
       <div>
+        <Mapping id="mapContainer"></Mapping>
         <div>
           <form
             onSubmit={(e) => {
@@ -154,7 +155,6 @@ class Map extends Component {
             />
           </form>
         </div>
-        <Mapping id="mapContainer"></Mapping>
       </div>
     );
   }
