@@ -33,7 +33,7 @@ function App() {
             render={() => <Login loginHandler={loginHandler} />}
           />
           <Route exact path="/signup" render={() => <Signup />} />
-          <Route path="/map" render={() => <Map />} />
+          <Route exact path="/map" render={() => <Map />} />
         </Router>
       </Switch>
     </div>

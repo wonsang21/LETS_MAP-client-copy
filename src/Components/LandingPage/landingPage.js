@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import Indutype from './Indutype';
 // import Header from './Header';
 // const Header = styled.header`
 //   color: white;
@@ -102,6 +103,7 @@ const LandingPage = (props) => {
         />
         <input type="submit" value="찾기" style={{ width: 130, height: 50 }} />
       </Search>
+      <Indutype />
       <Link
         style={{
           color: 'dodgerblue',
