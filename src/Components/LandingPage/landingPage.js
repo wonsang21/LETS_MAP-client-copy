@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { geolocated } from 'react-geolocated';
 // import Header from './Header';
 // const Header = styled.header`
 //   color: white;
@@ -73,22 +74,13 @@ const Spiner = styled.div`
 `;
 
 const LandingPage = (props) => {
+  console.dir(props);
+  if (props.coords) {
+    console.log(props.coords.latitude);
+    console.log(props.coords.longitude);
+  }
   return (
     <div>
-      {/* <Header /> */}
-      {/* <Header>
-        {console.log(props)}
-        <List>
-          <Item current={props.location.pathname === '/login'}>
-            <SLink to="/login">LOGIN</SLink>
-            {/* 로그인시 state 를변경시켜서  로그인회원가입을 숨긴다.*/}
-      {/* </Item>
-          <Item current={props.location.pathname === '/signup'}>
-            <SLink to="/signup">SIGN UP</SLink>
-          </Item>
-        </List>
-      </Header> */}{' '}
-      */}
       <Body>
         <Link to="/" style={{ color: 'dodgerblue' }}>
           LET`S_MAP
@@ -107,6 +99,9 @@ const LandingPage = (props) => {
           color: 'dodgerblue',
         }}
         to="/map"
+        onClick={() => {
+          props.positionHandler(props.coords.longitude, props.coords.latitude);
+        }}
       >
         내 위치
       </Link>
@@ -115,4 +110,9 @@ const LandingPage = (props) => {
   );
 };
 
-export default withRouter(LandingPage);
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(withRouter(LandingPage));

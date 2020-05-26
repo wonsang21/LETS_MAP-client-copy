@@ -36,7 +36,10 @@ class Map extends Component {
       kakao.maps.load(() => {
         let container = document.getElementById('mapContainer');
         let options = {
-          center: new kakao.maps.LatLng(37.275095, 127.009444),
+          center: new kakao.maps.LatLng(
+            this.props.position.y,
+            this.props.position.x,
+          ),
           level: 3,
         };
         const map = new window.kakao.maps.Map(container, options);
