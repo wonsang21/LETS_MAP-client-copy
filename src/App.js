@@ -10,7 +10,7 @@ import axios from 'axios';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0, click: false });
   const [marketList, setmarketList] = useState([]);
   const [user, setUser] = useState({
     userid: '',
@@ -25,8 +25,8 @@ function App() {
     setIsLogin(!isLogin);
   };
 
-  const positionHandler = (x, y) => {
-    setPosition({ x: x, y: y });
+  const positionHandler = (x, y, click) => {
+    setPosition({ x: x, y: y, click: click });
   };
 
   const marketListHandler = (marketList) => {
@@ -39,6 +39,7 @@ function App() {
     try {
       //마켓 찾는 중 ui
       setLoading(true);
+
       let res = await axios.get(
         `http://localhost:4000/filteringMarket?address=${input}&indutype=${indu}`,
       );

@@ -135,6 +135,7 @@ const LandingPage = (props) => {
             props.positionHandler(
               props.coords.longitude,
               props.coords.latitude,
+              true,
             );
           }}
         >
