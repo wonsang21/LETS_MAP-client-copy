@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import oc from 'open-color';
+import GoogleLogin from '../GoogleLogin/GoogleLogin';
 //css 부분
 // 전체 정렬 부분
 const Positioner = styled.div`
@@ -22,6 +23,8 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 `;
 // 로고 부분
 const Logo = styled(Link)`
@@ -36,6 +39,8 @@ const Contents = styled.div`
   background: white;
   padding: 2rem;
   height: auto;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 `;
 // 입력 부분
 const Input = styled.input`
@@ -113,10 +118,15 @@ class Login extends React.Component {
                     e.preventDefault();
                     let data = this.state;
                     axios
-                      .post(`${process.env.EC2_HOST}/signin`, data)
+                      .post(`${process.env.REACT_APP_EC2_HOST}/signin`, data)
                       .then((res) => {
-                        console.log(res.data);
-                        this.props.history.push('/');
+                        if (res.status === 200) {
+                          this.props.loginHandler(data.userid);
+                          this.props.history.push('/');
+                        }
+                      })
+                      .catch((res) => {
+                        alert('사용자가 존재하지 않습니다!');
                       });
                   }}
                 >
@@ -140,7 +150,7 @@ class Login extends React.Component {
                       <FbButton>페이스북</FbButton>
                     </div>
                     <div>
-                      <GgButton>구글</GgButton>
+                      <GoogleLogin />
                     </div>
                   </div>
                   <div style={{ marginTop: '4.5rem' }}>
