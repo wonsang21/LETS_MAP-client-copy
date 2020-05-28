@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
@@ -64,6 +64,26 @@ function App() {
       return;
     }
   };
+
+  useEffect(() => {
+    fetch('http://localhost:4000/userinfo', {
+      method: 'GET',
+      headers: {
+        Authorization: localStorage.getItem('userToken'),
+      }, // 이 부분은 따로 설정하고싶은 header가 있다면 넣으세요
+    })
+      .then((res) => {
+        if (res.status === 200 || res.status === 201) {
+          res.json().then((json) => {
+            console.log(json.userid);
+            loginHandler(json.userid);
+          });
+        } else {
+          console.error(res.statusText);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div>

@@ -16,10 +16,21 @@ const Positioner = styled.div`
   transform: translate(-50%, -50%);
 `;
 // 박스 부분
-const Box = styled.div`
+const Box1 = styled.div`
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   width: 700px;
   height: auto;
   background: white;
+`;
+
+const Box2 = styled.div`
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  width: 700px;
+  height: auto;
+  background: white;
+  padding: 15px;
 `;
 // 로고 감싸는 부분
 const LogoWrapper = styled.div`
@@ -116,7 +127,7 @@ class Review extends Component {
     };
     console.log(localStorage.getItem('userToken'));
     axios
-      .post(`${process.env.REACT_APP_EC2_HOST}/userinfo`, null, config)
+      .post(`http://${process.env.REACT_APP_EC2_HOST}/userinfo`, null, config)
       .then((res) => {
         console.dir(res);
         this.props.loginHandler(res.data.userid);
@@ -129,7 +140,7 @@ class Review extends Component {
     let position = queryString.parse(this.props.location.search);
     if (position) {
       fetch(
-        `${process.env.REACT_APP_EC2_HOST}/review?logt=${position.logt}&lat=${position.lat}`,
+        `http://${process.env.REACT_APP_EC2_HOST}/review?logt=${position.logt}&lat=${position.lat}`,
         requestOptions,
       )
         .then((response) => response.json())
@@ -151,7 +162,7 @@ class Review extends Component {
     console.log(queryString.parse(this.props.location.search));
     return (
       <Positioner>
-        <Box>
+        <Box1>
           <div>
             <center>
               <LogoWrapper>
@@ -172,7 +183,10 @@ class Review extends Component {
                     };
                     console.log(data);
                     axios
-                      .post(`${process.env.REACT_APP_EC2_HOST}/review`, data)
+                      .post(
+                        `http://${process.env.REACT_APP_EC2_HOST}/review`,
+                        data,
+                      )
                       .then((res) => {
                         if (res.status === 200) {
                           this.props.history.push(
@@ -205,11 +219,11 @@ class Review extends Component {
               </Contents>
             </center>
           </div>
-        </Box>
-        <Box>
+        </Box1>
+        <Box2>
           리뷰목록
           <div id="reviewReading"></div>
-        </Box>
+        </Box2>
       </Positioner>
     );
   }
