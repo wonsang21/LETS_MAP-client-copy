@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { withRouter } from 'react-router-dom';
 const GgButton = styled.button`
-  width: 50%;
+  width: 100%;
   float: right;
   margin-top: 1rem;
   border: 1px solid ${oc.gray[3]};
@@ -73,8 +73,10 @@ class GoogleLogin extends Component {
           .then((response) => response.text())
           .then((result) => JSON.parse(result))
           .then((json) => {
-            console.dir(json);
+            localStorage.setItem('userToken', json.token);
             if (json.lcode === 200) {
+              console.dir(json.token);
+              this.props.loginHandler(googleUser.getBasicProfile().getEmail());
               this.props.history.push('/');
             }
           })
@@ -94,27 +96,15 @@ class GoogleLogin extends Component {
     });
   };
   render() {
-    if (this.state.user) {
-      return (
-        <GgButton>
-          <div className="container">
-            <div id="" className="btn logout" onClick={this.signOut}>
-              구글 Logout
-            </div>
+    return (
+      <GgButton>
+        <div className="container">
+          <div id="customBtn" className="btn login">
+            구글 Login
           </div>
-        </GgButton>
-      );
-    } else {
-      return (
-        <GgButton>
-          <div className="container">
-            <div id="customBtn" className="btn login">
-              구글 Login
-            </div>
-          </div>
-        </GgButton>
-      );
-    }
+        </div>
+      </GgButton>
+    );
   }
 }
 export default withRouter(GoogleLogin);

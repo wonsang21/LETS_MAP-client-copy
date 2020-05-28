@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
-
+import { gapi, loadAuth2 } from 'gapi-script';
 const NavBar = styled.header`
   color: white;
   position: fixed;
@@ -45,6 +45,12 @@ const SLink = styled(Link)`
 `;
 
 const Header = (props) => {
+  useEffect(async () => {
+    let auth2 = await loadAuth2(
+      '139094529764-ktta2a2m7f3hnie2pptb3futk490pr3r.apps.googleusercontent.com',
+      '',
+    );
+  }, []);
   return (
     <NavBar>
       {props.isLogin ? (
@@ -56,6 +62,11 @@ const Header = (props) => {
             <SLink
               to="/"
               onClick={() => {
+                let auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(() => {
+                  console.log('User signed out.');
+                });
+                localStorage.setItem('userToken', '');
                 axios
                   .post(`${process.env.REACT_APP_EC2_HOST}/signout`)
                   .then((res) => {
@@ -63,8 +74,8 @@ const Header = (props) => {
                       this.props.history.push('/');
                     }
                   })
-                  .catch((res) => {
-                    alert('사용자가 존재하지 않습니다!');
+                  .catch((err) => {
+                    console.log(err);
                   });
                 props.loginHandler();
               }}

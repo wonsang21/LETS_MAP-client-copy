@@ -44,18 +44,19 @@ export default function (searchedPlace) {
           '        </div>' +
           '        <div class="body">' +
           '            <div class="img">' +
-          '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+          '                <img src="https://lh3.googleusercontent.com/proxy/bQDrtcKrezGq5JhyssyBmoCRKVhXlr-0gVG9XsD2cV1Qvr-IW01UNygMXIlt_4y_hxVs9CqwyeIeZ95BrVVld9PrBUABS3LnhwWYOyE_Ct6MEJPZTrvgF_7lqdkoLJJPS5dvw6Ywf3piv0Dl7Jk-YiYPue0bYROrQqsNidK7TXmCOwGP5rH1YZnls-3XuEeS3cOL6X6BoegAZHNMqKZBCDhTSGI1rBazPEVDz1Wm5uAmVRdIhBohlFM2A8UINvLYEqRkjVVM8g6yHnhmY1GdVdEeXQ" width="73" height="70">' +
           '           </div>' +
           '            <div class="desc">' +
           '                <div class="ellipsis">' +
-          place.road_address_name +
+          `${(place.road_address_name =
+            place.road_address_name || '도로명 주소 없음')}` +
           '</div>' +
           '                <div class="jibun ellipsis">' +
           '(지번) ' +
           place.address_name +
           '</div>' +
           '<div>' +
-          place.phone +
+          `${(place.phone = place.phone || '번호없음')}` +
           '</div>' +
           // 하단 별점, 리뷰, 즐겨찾기 <div>
           '                <div class="parent">' +
@@ -63,9 +64,9 @@ export default function (searchedPlace) {
           '리뷰' +
           '</a>' +
           '</div>' +
-          '                <div class="second">' +
-          '즐겨찾기' +
-          '</div>' +
+          // '                <div class="second">' +
+          // '즐겨찾기' +
+          // '</div>' +
           '</div>' +
           // 하단 별점, 리뷰, 즐겨찾기 </div>
           '            </div>' +
@@ -101,6 +102,10 @@ export default function (searchedPlace) {
           }
           overlay.setMap(map);
           clickedOverlay = overlay;
+        });
+        kakao.maps.event.addListener(map, 'click', function () {
+          // 맵 아무데나 클릭하면 인포위도우 제거
+          overlay.setMap(null);
         });
       }
 

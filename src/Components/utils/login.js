@@ -110,15 +110,20 @@ class Login extends React.Component {
                     e.preventDefault();
                     let data = this.state;
                     axios
-                      .post(`${process.env.REACT_APP_EC2_HOST}/signin`, data)
+                      .post(
+                        `http://${process.env.REACT_APP_EC2_HOST}/signin`,
+                        data,
+                      )
                       .then((res) => {
                         if (res.status === 200) {
-                          this.props.loginHandler(data.userid);
+                          localStorage.setItem('userToken', res.data.token);
+                          this.props.loginHandler(res.data.userid);
                           this.props.history.push('/');
                         }
+                        
                       })
-                      .catch((res) => {
-                        alert('사용자가 존재하지 않습니다!');
+                      .catch((err) => {
+                        console.log(err);
                       });
                   }}
                 >
@@ -139,10 +144,7 @@ class Login extends React.Component {
                   <Button type="submit">로그인</Button>
                   <div style={{ width: '100%' }}>
                     <div>
-                      <FbButton>페이스북</FbButton>
-                    </div>
-                    <div>
-                      <GoogleLogin />
+                      <GoogleLogin loginHandler={this.props.loginHandler} />
                     </div>
                   </div>
                   <div style={{ marginTop: '4.5rem' }}>
