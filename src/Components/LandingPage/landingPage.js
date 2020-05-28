@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { geolocated } from 'react-geolocated';
@@ -70,6 +70,22 @@ const LandingPage = (props) => {
     setIndutype(indu);
   };
 
+  useEffect(() => {
+    getLocation();
+  }, []);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      alert('Geolocation is not supported by this browser');
+    }
+  };
+
+  const getCoordinates = (position) => {
+    console.log(position);
+    props.positionHandler(position.coords.longitude, position.coords.latitude);
+  };
+
   const onChangeHandler = (e) => {
     setInputText(e.target.value);
   };
@@ -100,10 +116,10 @@ const LandingPage = (props) => {
             style={{ width: 130, height: 50 }}
             onClick={() => {
               props.getMarketList(inputText, indutype, () => {
-                props.positionHandler(
-                  props.coords.longitude,
-                  props.coords.latitude,
-                );
+                // props.positionHandler(
+                //   props.coords.longitude,
+                //   props.coords.latitude,
+                // );
                 props.history.push('/map');
               });
               // <Link to="/map"></Link>;
@@ -117,11 +133,7 @@ const LandingPage = (props) => {
             style={{ color: 'rgb(8, 119, 204)' }}
             to="/map"
             onClick={() => {
-              props.positionHandler(
-                props.coords.longitude,
-                props.coords.latitude,
-                true,
-              );
+              props.positionHandler(0, 0, true);
             }}
           >
             MY LOCATION

@@ -35,7 +35,6 @@ button{
 }
 
 body{
-    overflow:hidden;
     padding-top:70px;
     /* font-family: 'Jua', sans-serif; */
     /* background-color:rgba(20,20,20,1); */
