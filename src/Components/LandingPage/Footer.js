@@ -16,11 +16,11 @@ const Foot = styled.div`
 
 const Footer = () => {
   return (
-    <Foot>
-      <div Link to="/map">
-        {' '}
-      </div>
-    </Foot>
+    <Link style={{ color: 'rgb(8, 119, 204)' }} to="/map" onClick={() => {}}>
+      <Foot>
+        <div> </div>
+      </Foot>
+    </Link>
   );
 };
 

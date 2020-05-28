@@ -66,6 +66,7 @@ function App() {
   };
 
   useEffect(() => {
+    getLocation();
     fetch('http://localhost:4000/userinfo', {
       method: 'GET',
       headers: {
@@ -84,6 +85,19 @@ function App() {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getCoordinates);
+    } else {
+      alert('Geolocation is not supported by this browser');
+    }
+  };
+
+  const getCoordinates = (position) => {
+    console.log(position);
+    positionHandler(position.coords.longitude, position.coords.latitude);
+  };
 
   return (
     <div>
