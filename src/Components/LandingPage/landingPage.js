@@ -3,24 +3,43 @@ import { Link, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { geolocated } from 'react-geolocated';
 import Indutype from './Indutype';
+import Footer from './Footer';
 
 const Body = styled.body`
-  padding-top: 200px;
+  padding-top: 300px;
+  margin-bottom: 0px;
+  height: 0px;
   text-align: center;
-  font-size: 7em;
+  font-size: 5em;
   color: dodgerblue;
+  background-image: url('https://search.konacard.co.kr/img/mobile/meta_img.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  align-items: center;
+  justify-content: center center;
+  margin: 0px;
+  width: 100%;
+  background-size: contain;
 `;
+const Image = styled.div``;
 
+const Title = styled.div`
+  color: black;
+  margin: 0px;
+  padding: 0px;
+`;
 const Search = styled.div`
-  margin-top: 130px;
+  margin-top: 0px;
   text-align: center;
   height: 100px;
 `;
 const Spiner = styled.div`
-  padding-top: 150px;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding-top: 280px;
   text-align: center;
   margin: auto;
-  width: 300px;
   font-size: 300px;
   animation: spin 2s linear infinite;
   color: dodgerblue;
@@ -32,6 +51,16 @@ const Spiner = styled.div`
       transform: rotate(360deg);
     }
   }
+`;
+
+const Location = styled.div`
+  text-align: center;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  font-size: 2em;
+  color: white;
 `;
 
 const LandingPage = (props) => {
@@ -56,9 +85,7 @@ const LandingPage = (props) => {
     return (
       <div>
         <Body>
-          <Link to="/" style={{ color: 'dodgerblue' }}>
-            LET`S_MAP
-          </Link>
+          <Link to="/" style={{ color: 'rgb(0, 0, 0)' }}></Link>
         </Body>
         <Search>
           <input
@@ -84,22 +111,24 @@ const LandingPage = (props) => {
           />
         </Search>
         <Indutype indutypeHandler={indutypeHandler} />
-        <Link
-          style={{
-            color: 'dodgerblue',
-          }}
-          to="/map"
-          onClick={() => {
-            props.positionHandler(
-              props.coords.longitude,
-              props.coords.latitude,
-              true,
-            );
-          }}
-        >
-          내 위치
-        </Link>
-        {/* <Footer /> */}
+
+        <Location>
+          <Link
+            style={{ color: 'rgb(8, 119, 204)' }}
+            to="/map"
+            onClick={() => {
+              props.positionHandler(
+                props.coords.longitude,
+                props.coords.latitude,
+              );
+            }}
+          >
+            MY LOCATION
+          </Link>
+        </Location>
+
+        <Footer />
+
       </div>
     );
   }

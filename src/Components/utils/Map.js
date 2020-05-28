@@ -40,8 +40,37 @@ class Map extends Component {
   render() {
     return (
       <div>
-        <Mapping id="mapContainer"></Mapping>
-        <div>
+        <Mapping id="mapContainer">
+          <MapBody>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                let data = this.state;
+                this.handleSearchValue();
+              }}
+            >
+              <input
+                type="text"
+                placeholder="     찾고싶은 곳이 있나요?"
+                style={{
+                  width: '60vw',
+                  height: 50,
+                  marginLeft: 55,
+                  padding: 0,
+                }}
+                onChange={this.handleInputValue('searchPlace')}
+                id="keyword"
+              ></input>
+              <input
+                type="submit"
+                value="찾기"
+                style={{ width: '10vw', height: 50, margin: 0, padding: 0 }}
+                onClick={console.log(this.state)}
+              />
+            </form>
+          </MapBody>
+        </Mapping>
+        {/* <MapBody>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -59,26 +88,35 @@ class Map extends Component {
             <input
               type="text"
               placeholder="찾고싶은 곳이 있나요?"
-              style={{ width: 550, height: 50 }}
+              style={{ width: '60vw', height: 50, marginLeft: 55, padding: 0 }}
               onChange={this.handleInputValue('searchPlace')}
               id="keyword"
             ></input>
             <input
               type="submit"
               value="찾기"
-              style={{ width: 130, height: 50 }}
             />
           </form>
-        </div>
+        </MapBody> */}
       </div>
     );
   }
 }
 
 const Mapping = styled.div`
-  width: 1800px;
+  padding-top: 70px;
+  width: 100vw;
   height: 900px;
   margin: 0 auto;
+  position: absolute;
+  height: 100vh;
 `;
 
+const MapBody = styled.div`
+  margin: auto;
+  width: 80vw;
+  position: absolute;
+  z-index: 99;
+  margin-left: 10%;
+`;
 export default withRouter(Map);

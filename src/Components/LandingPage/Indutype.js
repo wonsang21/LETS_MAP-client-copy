@@ -1,28 +1,45 @@
+
 import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.ul`
   display: block;
   font-size: 0;
-  width: 50%;
+  width: 66%;
   border-left: 1px solid #ddd;
   border: none;
   margin: auto;
   align-items: center;
+  padding: auto;
+  justify-content: center;
 `;
 
 const IndutypeList = styled.button`
   display: inline-flex;
-  width: 187px;
+  width: 22%;
   font-size: 13px;
   color: #000;
   height: 55px;
+  border: solid 1px black;
   line-height: 19px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  /* border-right: 1px solid black; */
+  /* border-bottom: 1px solid black; */
   text-align: center;
   background: #fff;
   align-items: center;
+  margin: auto;
+  margin-right: 1px;
+  font-size: 20px;
+  margin-bottom: 1px;
+  cursor: pointer;
+  /* &:hover {
+    background-color: rgb(8, 119, 204); */
+  &:focus {
+    background-color: rgb(8, 119, 204);
+  }
+  /* &:hover {
+    background-color: rgb(8, 119, 204);
+  } */
 `;
 
 const Indutype = ({ indutypeHandler }) => {
@@ -30,6 +47,7 @@ const Indutype = ({ indutypeHandler }) => {
     console.log(e.target.value);
     indutypeHandler(e.target.value);
   };
+
 
   return (
     <div class="biz_area_list">

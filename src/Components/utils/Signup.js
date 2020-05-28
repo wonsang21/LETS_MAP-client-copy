@@ -22,6 +22,8 @@ const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 `;
 // 로고 부분
 const Logo = styled(Link)`
@@ -36,6 +38,8 @@ const Contents = styled.div`
   background: white;
   padding: 2rem;
   height: auto;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
 `;
 // 입력 부분
 const Input = styled.input`
