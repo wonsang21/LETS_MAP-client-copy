@@ -106,10 +106,6 @@ export default function (location, marketList) {
           overlay.setMap(map);
           clickedOverlay = overlay;
         });
-        kakao.maps.event.addListener(map, 'click', function () {
-          // 맵 아무데나 클릭하면 인포위도우 제거
-          overlay.setMap(null);
-        });
       }
 
       if (marketList.length === 0 && location.click === true) {
