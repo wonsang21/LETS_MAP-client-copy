@@ -1,14 +1,9 @@
-/*global kakao*/
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
-import oc from 'open-color';
 
 import mapping from '../Library/Mapping.js';
 import findPlace from '../Library/FindPlace';
-
-require('dotenv').config();
 
 class Map extends Component {
   constructor(props) {

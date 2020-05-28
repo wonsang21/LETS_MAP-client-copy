@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import axios from 'axios';
 
 const NavBar = styled.header`
@@ -43,24 +43,10 @@ const SLink = styled(Link)`
   align-items: center;
   text-align: center;
 `;
-const categories = [
-  { name: 'all', text: 'HOME' },
-  { name: 'login', text: 'LOGIN' },
-  { name: 'signup', text: 'SIGN UP' },
-];
+
 const Header = (props) => {
-  // const [login, setLogin] = useState(true);
   return (
     <NavBar>
-      {/* {console.log(props)}
-      {categories.map((c) => (
-        <category key={c.name}>
-          <Item>
-            {' '}
-            <SLink>{c.text}</SLink>
-          </Item>
-        </category>
-      ))} */}
       {props.isLogin ? (
         <List>
           <Item current={props.location.pathname === '/'}>
@@ -106,18 +92,6 @@ const Header = (props) => {
           </Item>
         </List>
       )}
-      {/* <List>
-        <Item current={props.location.pathname === '/'}>
-          <SLink to="/">HOME</SLink>
-        </Item>
-        <Item current={props.location.pathname === '/login'}>
-          <SLink to="/login">LOGIN</SLink>
-          {/* 로그인시 state 를변경시켜서  로그인회원가입을 숨긴다.*/}
-      {/* </Item>
-        <Item current={props.location.pathname === '/signup'}>
-          <SLink to="/signup">SIGN UP</SLink>
-        </Item>
-      </List> */}{' '}
     </NavBar>
   );
 };

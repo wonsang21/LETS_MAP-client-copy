@@ -1,50 +1,8 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { geolocated } from 'react-geolocated';
 import Indutype from './Indutype';
-
-// import Header from './Header';
-// const Header = styled.header`
-//   color: white;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 80px;
-//   display: flex;
-//   align-items: center;
-//   padding: 0px 10px;
-//   background-color: rgba(20, 20, 20, 1);
-//   z-index: 10;
-//   box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
-// `;
-
-// const List = styled.ul`
-//   display: flex;
-// `;
-
-// const Item = styled.li`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 100px;
-//   text-align: center;
-//   list-style: none;
-//   margin-right: 40px;
-//   font-size: 1em;
-//   border-bottom: 5px solid
-//     ${(props) => (props.current ? '#3498db' : 'transparent')};
-//   transition: border-bottom 0.3s ease-in-out;
-// `;
-// const SLink = styled(Link)`
-//   color: dodgerblue;
-//   text-decoration: none;
-//   height: 50px;
-//   display: flex;
-//   align-items: center;
-//   text-align: center;
-// `;
 
 const Body = styled.body`
   padding-top: 200px;

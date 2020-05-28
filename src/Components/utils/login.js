@@ -82,14 +82,6 @@ const FbButton = styled.button`
   line-height: 2.5rem;
   font-size: 1.25rem;
 `;
-const GgButton = styled.button`
-  width: 50%;
-  float: right;
-  margin-top: 1rem;
-  border: 1px solid ${oc.gray[3]};
-  line-height: 2.5rem;
-  font-size: 1.25rem;
-`;
 require('dotenv').config();
 class Login extends React.Component {
   constructor(props) {
