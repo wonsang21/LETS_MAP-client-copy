@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Container = styled.ul`
   display: block;
@@ -25,9 +25,6 @@ const IndutypeList = styled.button`
   align-items: center;
 `;
 
-const Text = styled.span`
-  margin: auto;
-`;
 const Indutype = ({ indutypeHandler }) => {
   const click = (e) => {
     console.log(e.target.value);

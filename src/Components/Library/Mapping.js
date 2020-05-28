@@ -1,11 +1,13 @@
 /*global kakao*/
 import axios from 'axios';
+import './Info.css';
+
+require('dotenv').config();
 
 export default function (location, marketList) {
   const script = document.createElement('script');
   script.async = true;
-  script.src =
-    'https://dapi.kakao.com/v2/maps/sdk.js?appkey=d6aa8c92702a61cd95a4b7b7d7472aa3&autoload=false&libraries=services,clusterer,drawing';
+  script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_API}&autoload=false&libraries=services,clusterer,drawing`;
   document.head.appendChild(script);
 
   script.onload = () => {
@@ -27,11 +29,81 @@ export default function (location, marketList) {
       //지도를 생성합니다
       const map = new window.kakao.maps.Map(container, options);
 
+      var clickedOverlay = null;
+
       function displayMarker(place) {
         // 마커를 생성하고 지도에 표시합니다
         var marker = new kakao.maps.Marker({
           map: map,
           position: new kakao.maps.LatLng(place.y, place.x),
+        });
+        var content1 =
+          '<div style="padding:5px;">' + place.place_name + '</div>';
+        var content2 =
+          '<div class="wrap">' +
+          '    <div class="info">' +
+          '        <div class="title">' +
+          place.place_name +
+          '        </div>' +
+          '        <div class="body">' +
+          '            <div class="img">' +
+          '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+          '           </div>' +
+          '            <div class="desc">' +
+          '                <div class="ellipsis">' +
+          place.road_address_name +
+          '</div>' +
+          '                <div class="jibun ellipsis">' +
+          '(지번) ' +
+          place.address_name +
+          '</div>' +
+          '<div>' +
+          place.phone +
+          '</div>' +
+          // 하단 별점, 리뷰, 즐겨찾기 <div>
+          '                <div class="parent">' +
+          `                <div class="first"><a class="link" href="/review/?logt=${place.x}&lat=${place.y}"  > ` +
+          '리뷰' +
+          '</a>' +
+          '</div>' +
+          '                <div class="second">' +
+          '즐겨찾기' +
+          '</div>' +
+          '</div>' +
+          // 하단 별점, 리뷰, 즐겨찾기 </div>
+          '            </div>' +
+          '        </div>' +
+          '    </div>' +
+          '</div>';
+        // 마커를 마우스오버하면 장소명을 표출할 인포윈도우 입니다
+        var infowindow = new kakao.maps.InfoWindow({
+          content: content1,
+          zIndex: 1,
+        });
+        // 마커에 마우스오버 이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'mouseover', function () {
+          // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+          infowindow.open(map, marker);
+        });
+        // 마커에 마우스아웃 이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'mouseout', function () {
+          // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+          infowindow.close();
+        });
+        // 마커 위에 커스텀오버레이를 표시합니다
+        // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+        var overlay = new kakao.maps.CustomOverlay({
+          content: content2,
+          position: marker.getPosition(),
+        });
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function () {
+          // 마커를 클릭하면 가게상세정보가 오버레이에 표출됩니다
+          if (clickedOverlay) {
+            clickedOverlay.setMap(null);
+          }
+          overlay.setMap(map);
+          clickedOverlay = overlay;
         });
       }
 
@@ -50,7 +122,7 @@ export default function (location, marketList) {
         function displayCenterInfo(result, status) {
           axios
             .get(
-              `http://localhost:4000/?address=${result[0].address.region_3depth_name}`,
+              `http://${process.env.REACT_APP_EC2_HOST}/?address=${result[0].address.region_3depth_name}`,
             )
             .then((res) => {
               console.log('경기도 API에서 받아온 데이터 :', res.data);
@@ -83,30 +155,7 @@ export default function (location, marketList) {
         }
       } else if (marketList.length > 0) {
         console.log('업종별 진입');
-        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-        var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 
-        // 지도에 마커를 표시하는 함수입니다
-        function displayMarker(place) {
-          // 마커를 생성하고 지도에 표시합니다
-          var marker = new kakao.maps.Marker({
-            map: map,
-            position: new kakao.maps.LatLng(place.y, place.x),
-          });
-
-          marker.setMap(map);
-
-          // 마커에 클릭이벤트를 등록합니다
-          kakao.maps.event.addListener(marker, 'click', function () {
-            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-            infowindow.setContent(
-              '<div style="padding:5px;font-size:12px;">' +
-                place.place_name +
-                '</div>',
-            );
-            infowindow.open(map, marker);
-          });
-        }
         // 마커를 만들어줍니다
         var bounds = new kakao.maps.LatLngBounds();
 

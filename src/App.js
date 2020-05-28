@@ -1,12 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
+
+import Review from './Components/utils/Review';
 import LandingPage from './Components/LandingPage/landingPage';
 import GlobalStyles from './Components/GlobalStyles';
 import Login from './Components/utils/login';
 import Signup from './Components/utils/Signup';
 import Map from './Components/utils/Map';
 import Header from './Components/LandingPage/Header';
-import axios from 'axios';
+
+require('dotenv').config();
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -41,7 +45,7 @@ function App() {
       setLoading(true);
 
       let res = await axios.get(
-        `http://localhost:4000/filteringMarket?address=${input}&indutype=${indu}`,
+        `http://${process.env.REACT_APP_EC2_HOST}/filteringMarket?address=${input}&indutype=${indu}`,
       );
       let marketList = res.data.addressList;
 
@@ -50,11 +54,13 @@ function App() {
         //map으로
         cb();
       } else {
+        setmarketList([]);
         alert('server 오류');
       }
       setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
       return;
     }
   };
@@ -92,6 +98,16 @@ function App() {
           <Route
             path="/map"
             render={() => <Map position={position} marketList={marketList} />}
+          />
+          <Route
+            path="/review"
+            render={() => (
+              <Review
+                isLogin={isLogin}
+                user={user}
+                loginHandler={loginHandler}
+              />
+            )}
           />
         </Router>
       </Switch>
