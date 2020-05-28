@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+
+import React from 'react';
+import styled from 'styled-components';
 
 const Container = styled.ul`
   display: block;
@@ -41,20 +42,12 @@ const IndutypeList = styled.button`
   } */
 `;
 
-const Text = styled.span`
-  margin: auto;
-  text-align: center;
-`;
 const Indutype = ({ indutypeHandler }) => {
   const click = (e) => {
     console.log(e.target.value);
     indutypeHandler(e.target.value);
   };
 
-  const [Button, setButton] = useState(true);
-  const colorChange = () => {
-    setButton(!true);
-  };
 
   return (
     <div class="biz_area_list">
