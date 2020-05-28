@@ -13,9 +13,9 @@ const NavBar = styled.header`
   display: flex;
   align-items: center;
   padding: 0px 10px;
-  background-color: rgba(20, 20, 20, 1);
+  background-color: rgb(8, 119, 204);
   z-index: 10;
-  box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 1px 5px 2px rgba(0, 0, 1, 2);
   margin-bottom: 50px;
 `;
 const List = styled.ul`
@@ -32,11 +32,11 @@ const Item = styled.li`
   margin-right: 40px;
   font-size: 1em;
   border-bottom: 5px solid
-    ${(props) => (props.current ? '#3498db' : 'transparent')};
+    ${(props) => (props.current ? 'black' : 'transparent')};
   transition: border-bottom 0.3s ease-in-out;
 `;
 const SLink = styled(Link)`
-  color: dodgerblue;
+  color: white;
   text-decoration: none;
   height: 50px;
   display: flex;

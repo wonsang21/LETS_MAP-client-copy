@@ -1,37 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const Container = styled.ul`
   display: block;
   font-size: 0;
-  width: 50%;
+  width: 66%;
   border-left: 1px solid #ddd;
   border: none;
   margin: auto;
   align-items: center;
+  padding: auto;
+  justify-content: center;
 `;
 
 const IndutypeList = styled.button`
   display: inline-flex;
-  width: 187px;
+  width: 22%;
   font-size: 13px;
   color: #000;
   height: 55px;
+  border: solid 1px black;
   line-height: 19px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  /* border-right: 1px solid black; */
+  /* border-bottom: 1px solid black; */
   text-align: center;
   background: #fff;
   align-items: center;
+  margin: auto;
+  margin-right: 1px;
+  font-size: 20px;
+  margin-bottom: 1px;
+  cursor: pointer;
+  /* &:hover {
+    background-color: rgb(8, 119, 204); */
+  &:focus {
+    background-color: rgb(8, 119, 204);
+  }
+  /* &:hover {
+    background-color: rgb(8, 119, 204);
+  } */
 `;
 
 const Text = styled.span`
   margin: auto;
+  text-align: center;
 `;
 const Indutype = ({ indutypeHandler }) => {
   const click = (e) => {
     console.log(e.target.value);
     indutypeHandler(e.target.value);
+  };
+
+  const [Button, setButton] = useState(true);
+  const colorChange = () => {
+    setButton(!true);
   };
 
   return (

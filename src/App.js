@@ -40,7 +40,7 @@ function App() {
       //마켓 찾는 중 ui
       setLoading(true);
       let res = await axios.get(
-        `http://localhost:4000/filteringMarket?address=${input}&indutype=${indu}`,
+        `${process.env.REACT_APP_EC2_HOST}/filteringMarket?address=${input}&indutype=${indu}`,
       );
       let marketList = res.data.addressList;
 
