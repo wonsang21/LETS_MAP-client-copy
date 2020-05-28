@@ -103,10 +103,6 @@ export default function (searchedPlace) {
           overlay.setMap(map);
           clickedOverlay = overlay;
         });
-        kakao.maps.event.addListener(map, 'click', function () {
-          // 맵 아무데나 클릭하면 인포위도우 제거
-          overlay.setMap(null);
-        });
       }
 
       // 키워드 검색 완료 시 호출되는 콜백함수 입니다
